@@ -90,8 +90,7 @@ class PenghuniDetail extends StatelessWidget {
         .deletePenghuni(this.penghuni.id)
         .then((res) {
       if(res) {
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => Penghuni()), (route) => false);
+        Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
       } else {
         // ALERT
       }

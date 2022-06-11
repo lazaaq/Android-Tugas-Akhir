@@ -49,8 +49,7 @@ class _PenghuniEditState extends State<PenghuniEdit> {
           .updatePenghuni(widget.id, _nama.text, _asal.text, _kampus.text, _kamar.text, _no_hp.text)
           .then((res) {
         if (res) {
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => Penghuni()), (route) => false);
+          Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
         } else {
           var snackbar = SnackBar(content: Text('Ops, Error. Hubungi Admin'),);
           snackbarKey.currentState?.showSnackBar(snackbar);

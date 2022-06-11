@@ -6,6 +6,9 @@ import 'package:my_kost/pages/penghuni_add.dart';
 import 'package:my_kost/pages/penghuni_detail.dart';
 
 class Penghuni extends StatelessWidget {
+  String title;
+  Penghuni({required this.title});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +20,7 @@ class Penghuni extends StatelessWidget {
         titleSpacing: 0.0, // if you want remove title spacing with back button
         title:  Center(
           child: Text(
-            'MyKost',
+            title,
             style: TextStyle(color: Colors.black54),
           ),
         ),
