@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_kost/api/notification_api.dart';
+import 'package:my_kost/pages/penghuni_edit.dart';
 import 'package:provider/provider.dart';
 import './../providers/penghuni_provider.dart';
 import 'package:my_kost/models/penghuni_model.dart';
@@ -6,36 +8,36 @@ import 'package:my_kost/pages/penghuni_add.dart';
 import 'package:my_kost/pages/penghuni_detail.dart';
 
 class Penghuni extends StatelessWidget {
-  String title;
-  Penghuni({required this.title});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: new AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.black, //change your color here
+        ),
         backgroundColor: Colors.white,
-        //automaticallyImplyLeading: true
         elevation: 0.0, // for elevation
         titleSpacing: 0.0, // if you want remove title spacing with back button
-        title:  Center(
-          child: Text(
-            title,
-            style: TextStyle(color: Colors.black54),
+        title:  Text(
+          'Kembali',
+          style: TextStyle(
+            color: Colors.black54,
+            fontSize: 17
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(child: Text('+'), onPressed: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => PenghuniAdd()));
-      },),
+      // floatingActionButton: FloatingActionButton(child: Text('+'), onPressed: () {
+      //   Navigator.of(context).push(MaterialPageRoute(builder: (context) => PenghuniAdd()));
+      // },),
       body: RefreshIndicator(
-        onRefresh: () =>
-            Provider.of<PenghuniProvider>(context, listen: false).getPenghuni(),
+        onRefresh: () => Provider.of<PenghuniProvider>(context).getPenghuni(),
         color: Colors.red,
         child: Container(
           margin: EdgeInsets.all(10),
           child: FutureBuilder(
-            future: Provider.of<PenghuniProvider>(context, listen: false).getPenghuni(),
+            future: Provider.of<PenghuniProvider>(context, listen: false)
+                .getPenghuni(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
@@ -47,22 +49,89 @@ class Penghuni extends StatelessWidget {
                   return ListView.builder(
                     itemCount: data.dataPenghuni.length,
                     itemBuilder: (context, i) {
-                    return GestureDetector(
-                      onTap: () => seeDetails(context, data.dataPenghuni[i]),
-                      child: Card(
-                        elevation: 8,
-                        child: ListTile(
-                          title: Text(data.dataPenghuni[i].nama),
-                          subtitle: Text('Asal : ${data.dataPenghuni[i].asal}'),
-                          trailing: Text('Kampus : ${data.dataPenghuni[i].kampus}'),
+                      return InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => PenghuniEdit(
+                                id: data.dataPenghuni[i].id,
+                              ),
+                            ),
+                          );
+                        },
+                        child: Dismissible(
+                          key: UniqueKey(),
+                          direction: DismissDirection.endToStart,
+                          confirmDismiss: (DismissDirection direction) async {
+                            final bool res = await showDialog(context: context, builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Konfirmasi'),
+                                content: Text('Kamu Yakin?'),
+                                actions: <Widget>[
+                                  FlatButton(onPressed: () => Navigator.of(context).pop(true), child: Text('HAPUS'),),
+                                  FlatButton(onPressed: () => Navigator.of(context).pop(false), child: Text('BATALKAN'),)
+                                ],
+                              );
+                            });
+                            return res;
+                          },
+                          onDismissed: (value) {
+                            Provider.of<PenghuniProvider>(context, listen: false).deletePenghuni(data.dataPenghuni[i].id);
+                          },
+                          child: Card(
+                            color: Colors.greenAccent,
+                            elevation: 8,
+                            child: ListTile(
+                              title: Container(
+                                margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                child: Text(
+                                  data.dataPenghuni[i].nama,
+                                  style: TextStyle(
+                                      fontSize: 18, fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              subtitle: Column(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        'Asal: ${data.dataPenghuni[i].asal}',
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        'Kampus: ${data.dataPenghuni[i].kampus}',
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        'No Handphone: ${data.dataPenghuni[i].no_hp}',
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              trailing: Text(
+                                  "Kamar: ${data.dataPenghuni[i].kamar}"),
+                            ),
+                          ),
                         ),
-                        color: Colors.white,
-                      ),
-                    );
-                  });
+                      );
+                    },
+                  );
                 },
               );
-            }
+            },
           ),
         ),
       ),

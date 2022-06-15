@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:my_kost/pages/home.dart';
+import 'package:my_kost/pages/penghuni.dart';
 import 'package:my_kost/providers/penghuni_provider.dart';
 import 'package:provider/provider.dart';
-import './pages/penghuni.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
 }
 
@@ -20,6 +21,9 @@ class MyApp extends StatelessWidget {
         )
       ],
       child: MaterialApp(
+        theme: ThemeData(
+          fontFamily: 'Poppins'
+        ),
         onGenerateTitle: (context) {
           var t = AppLocalizations.of(context);
           return t!.appTitle;
@@ -29,7 +33,10 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) {
-            return Penghuni(title: AppLocalizations.of(context)!.appTitle);
+            return Home(title: AppLocalizations.of(context)!.appTitle);
+          },
+          '/penghuni': (context) {
+            return Penghuni();
           },
         },
         debugShowCheckedModeBanner: false,

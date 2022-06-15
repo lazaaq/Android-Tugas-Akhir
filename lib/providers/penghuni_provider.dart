@@ -3,6 +3,20 @@ import './../models/penghuni_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+Future<List<PenghuniModel>> getPenghuni() async {
+  final url = 'https://mykostapp.000webhostapp.com/penghuni.php';
+  // final url = 'http://192.168.56.69/disa-api/penghuni.php';
+  final response = await http.get(Uri.parse(url));
+  print(response.statusCode);
+
+  if (response.statusCode == 200) {
+    final result = json.decode(response.body)['data'].cast<Map<String, dynamic>>();
+    return result.map<PenghuniModel>((json) => PenghuniModel.fromJson(json)).toList();
+  } else {
+    throw Exception();
+  }
+}
+
 class PenghuniProvider extends ChangeNotifier {
   List<PenghuniModel> _data = [];
   List<PenghuniModel> get dataPenghuni => _data;
@@ -11,6 +25,7 @@ class PenghuniProvider extends ChangeNotifier {
     final url = 'https://mykostapp.000webhostapp.com/penghuni.php';
     // final url = 'http://192.168.56.69/disa-api/penghuni.php';
     final response = await http.get(Uri.parse(url));
+    print(response.statusCode);
 
     if (response.statusCode == 200) {
       final result = json.decode(response.body)['data'].cast<Map<String, dynamic>>();

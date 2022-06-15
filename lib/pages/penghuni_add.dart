@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_kost/pages/penghuni.dart';
 import 'package:my_kost/providers/penghuni_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -89,7 +88,23 @@ class PenghuniAdd extends StatelessWidget {
                   ),
                   labelText: 'Nomor Handphone'
               ),
-            )
+            ),
+            Container(
+              margin: EdgeInsets.all(10),
+              child: TextButton(
+                child: Text(
+                    'Push Notification',
+                    style: TextStyle(color: Colors.black)
+                ),
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.blueAccent,
+                  padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                ),
+                onPressed: () {
+                  print('notification');
+                },
+              ),
+            ),
           ],
         ),
       ),
