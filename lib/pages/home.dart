@@ -14,7 +14,9 @@ import 'dart:convert';
 
 class Home extends StatefulWidget {
   String title;
-  Home({this.title = 'My Kost'});
+  String greetingTitle;
+  String greetingSubtitle;
+  Home({this.title = 'My Kost', this.greetingTitle = '', this.greetingSubtitle = ''});
 
   @override
   State<Home> createState() => _HomeState();
@@ -54,7 +56,7 @@ class _HomeState extends State<Home> {
             child: Container(
               margin: EdgeInsets.fromLTRB(30, 0, 0, 0),
               child: Text(
-                "Hi, Siti!",
+                widget.greetingTitle,
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.black54,
@@ -68,7 +70,7 @@ class _HomeState extends State<Home> {
             child: Container(
               margin: EdgeInsets.fromLTRB(30, 15, 0, 0),
               child: Text(
-                "Ingin Ngapain?",
+                widget.greetingSubtitle,
                 style: TextStyle(
                   fontSize: 25,
                   color: Colors.black54,

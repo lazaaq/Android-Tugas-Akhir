@@ -156,9 +156,32 @@ class _PenghuniEditState extends State<PenghuniEdit> {
                 hintText: 'Umur',
               ),
             ),
+            TextButton(
+              child: Text(
+                  'Hapus Data',
+                  style: TextStyle(color: Colors.white)
+              ),
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.redAccent,
+                padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+              ),
+              onPressed: () => hapusData(context),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  void hapusData(BuildContext context) {
+    Provider.of<PenghuniProvider>(context, listen: false)
+        .deletePenghuni(widget.id)
+        .then((res) {
+      if(res) {
+        Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+      } else {
+        // ALERT
+      }
+    });
   }
 }

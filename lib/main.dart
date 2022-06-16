@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_kost/pages/home.dart';
 import 'package:my_kost/pages/penghuni.dart';
+import 'package:my_kost/pages/splash_screen.dart';
 import 'package:my_kost/providers/penghuni_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -30,14 +31,21 @@ class MyApp extends StatelessWidget {
         },
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        initialRoute: '/',
+        initialRoute: '/splash',
         routes: {
           '/': (context) {
-            return Home(title: AppLocalizations.of(context)!.appTitle);
+            return Home(
+              title: AppLocalizations.of(context)!.appTitle,
+              greetingTitle: AppLocalizations.of(context)!.greetingTitle,
+              greetingSubtitle: AppLocalizations.of(context)!.greetingSubtitle,
+            );
           },
           '/penghuni': (context) {
             return Penghuni();
           },
+          '/splash': (context) {
+            return Splash();
+          }
         },
         debugShowCheckedModeBanner: false,
       ),

@@ -24,7 +24,9 @@ class PenghuniAdd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Add Penghuni'), actions: <Widget>[
+      appBar: AppBar(
+        title: Text('Add Penghuni'),
+        actions: <Widget>[
         TextButton(
           child: Icon(Icons.save, color: Colors.white,),
           onPressed: () => submit(context),
@@ -87,22 +89,6 @@ class PenghuniAdd extends StatelessWidget {
                       )
                   ),
                   labelText: 'Nomor Handphone'
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.all(10),
-              child: TextButton(
-                child: Text(
-                    'Push Notification',
-                    style: TextStyle(color: Colors.black)
-                ),
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,
-                  padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                ),
-                onPressed: () {
-                  print('notification');
-                },
               ),
             ),
           ],
