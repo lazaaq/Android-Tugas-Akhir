@@ -24,18 +24,42 @@ class PenghuniAdd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Add Penghuni'),
-        actions: <Widget>[
-        TextButton(
-          child: Icon(Icons.save, color: Colors.white,),
-          onPressed: () => submit(context),
-        )
-      ]),
+        iconTheme: IconThemeData(
+          color: Colors.black, //change your color here
+        ),
+        backgroundColor: Colors.white,
+        titleSpacing: 0.0,
+        elevation: 0.0,
+        title: Text(
+          'Kembali',
+          style: TextStyle(
+            color: Colors.black54,
+            fontSize: 17
+          ),
+        ),
+        // actions: <Widget>[
+        // TextButton(
+        //   child: Icon(Icons.save, color: Colors.black,),
+        //   onPressed: () => submit(context),
+        // )]
+      ),
       body: Container(
-        margin: EdgeInsets.all(10),
+        margin: EdgeInsets.all(20),
         child: ListView(
           children: <Widget>[
+            Container(
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: Text(
+                'Tambah Data Penyewa',
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.black54
+                )
+              ),
+            ),
             TextField(
               controller: _nama,
               decoration: InputDecoration(
@@ -89,6 +113,24 @@ class PenghuniAdd extends StatelessWidget {
                       )
                   ),
                   labelText: 'Nomor Handphone'
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: SizedBox(
+                height: 50,
+                child: TextButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Color(0xff868383))
+                  ),
+                  onPressed: () => submit(context),
+                  child: Text(
+                    'Submit',
+                    style: TextStyle(
+                        color: Colors.white
+                    ),
+                  ),
+                ),
               ),
             ),
           ],

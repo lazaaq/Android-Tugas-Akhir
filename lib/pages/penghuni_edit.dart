@@ -65,26 +65,50 @@ class _PenghuniEditState extends State<PenghuniEdit> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: snackbarKey,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Edit Penghuni'),
-        actions: <Widget>[
-          TextButton(
-            child: _isLoading
-                ? CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-            )
-                : Icon(
-              Icons.save,
-              color: Colors.white,
-            ),
-            onPressed: () => submit(context),
-          )
-        ],
+        iconTheme: IconThemeData(
+          color: Colors.black, //change your color here
+        ),
+        backgroundColor: Colors.white,
+        titleSpacing: 0.0,
+        elevation: 0.0,
+        title: Text(
+          'Kembali',
+          style: TextStyle(
+              color: Colors.black54,
+              fontSize: 17
+          ),
+        ),
+        // actions: <Widget>[
+        //   TextButton(
+        //     child: _isLoading
+        //         ? CircularProgressIndicator(
+        //       valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+        //     )
+        //         : Icon(
+        //       Icons.save,
+        //       color: Colors.white,
+        //     ),
+        //     onPressed: () => submit(context),
+        //   )
+        // ],
       ),
       body: Container(
-        margin: EdgeInsets.all(10),
+        margin: EdgeInsets.all(20),
         child: ListView(
           children: <Widget>[
+            Container(
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: Text(
+                  'Ubah Data Penyewa',
+                  style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.black54
+                  )
+              ),
+            ),
             TextField(
               controller: _nama,
               decoration: InputDecoration(
@@ -108,7 +132,7 @@ class _PenghuniEditState extends State<PenghuniEdit> {
                     color: Colors.pinkAccent,
                   ),
                 ),
-                hintText: 'Gaji',
+                hintText: 'Asal Kota',
               ),
               onSubmitted: (_) {
                 FocusScope.of(context).requestFocus(kampusNode);
@@ -123,7 +147,7 @@ class _PenghuniEditState extends State<PenghuniEdit> {
                     color: Colors.pinkAccent,
                   ),
                 ),
-                hintText: 'Gaji',
+                hintText: 'Asal Kampus',
               ),
               onSubmitted: (_) {
                 FocusScope.of(context).requestFocus(kampusNode);
@@ -138,7 +162,7 @@ class _PenghuniEditState extends State<PenghuniEdit> {
                     color: Colors.pinkAccent,
                   ),
                 ),
-                hintText: 'Gaji',
+                hintText: 'Nomor Kamar',
               ),
               onSubmitted: (_) {
                 FocusScope.of(context).requestFocus(kamarNode);
@@ -153,19 +177,43 @@ class _PenghuniEditState extends State<PenghuniEdit> {
                     color: Colors.pinkAccent,
                   ),
                 ),
-                hintText: 'Umur',
+                hintText: 'Nomor Handphone',
               ),
             ),
-            TextButton(
-              child: Text(
-                  'Hapus Data',
-                  style: TextStyle(color: Colors.white)
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: SizedBox(
+                height: 50,
+                child: TextButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Color(0xff868383))
+                  ),
+                  onPressed: () => submit(context),
+                  child: Text(
+                    'Submit',
+                    style: TextStyle(
+                        color: Colors.white
+                    ),
+                  ),
+                ),
               ),
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.redAccent,
-                padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              child: SizedBox(
+                height: 50,
+                child: TextButton(
+                  child: Text(
+                      'Hapus Data',
+                      style: TextStyle(color: Colors.white)
+                  ),
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.redAccent,
+                    padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  ),
+                  onPressed: () => hapusData(context),
+                ),
               ),
-              onPressed: () => hapusData(context),
             ),
           ],
         ),
